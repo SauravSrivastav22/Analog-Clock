@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <title>Analog Clock</title>
+    <style>
+        
+        .clock {
+            background: black;
+            width: 300px;
+            height: 300px;
+            margin: 8% auto 0;
+            border-radius: 50%;
+            border: 14px solid brown;
+            position: relative;
+            box-shadow: 0 2vw 4vw -1vw rgba(0,0,0,0.8);
+        }
+        body{
+            background: radial-gradient(#fff,#ffd6d6);
+            animation: animated 2s ease-in-out infinite alternate;
+        }
+
+        .dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #ccc;
+            top: 8%;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            position: absolute;
+            z-index: 10;
+            box-shadow: 0 2px 4px -1px black;
+        }
+        
+        .hour {
+            position: absolute;
+            z-index: 5;
+            width: 4px;
+            height: 65px;
+            background: #8C3256;
+            top: 79px;
+            transform-origin: 50% 72px;
+            left: 50%;
+            margin-left: -2px;
+            border-top-left-radius: 50%;
+            border-top-right-radius: 50%;
+        }
+
+        .minute {
+            position: absolute;
+            z-index: 6;
+            width: 4px;
+            height: 100px;
+            background: #0F1E1A;
+            top: 46px;
+            left: 50%;
+            margin-left: -2px;
+            border-top-left-radius: 50%;
+            border-top-right-radius: 50%;
+            transform-origin: 50% 105px;
+        }
+
+        .second {
+            position: absolute;
+            z-index: 7;
+            width: 2px;
+            height: 120px;
+            background: gold;
+            top: 26px;
+            lefT: 50%;
+            margin-left: -1px;
+            border-top-left-radius: 50%;
+            border-top-right-radius: 50%;
+            transform-origin: 50% 125px;
+        }
+        span {
+            display: inline-block;
+            position: absolute;
+            color: #333;
+            font-size: 22px;
+            font-family: 'Poiret One';
+            font-weight: 700;
+            z-index: 4;
+        }
+        .h12 {
+            top: 30px;
+            left: 50%;
+            margin-left: -9px;
+            color: aqua;
+        }
+        .h3 {
+            top: 140px;
+            right: 30px;
+            color: aqua;
+        }
+        .h6 {
+            bottom: 30px;
+            left: 50%;
+            margin-left: -5px;
+            color: aqua;
+        }
+        .h9 {
+            left: 32px;
+            top: 140px;
+            color: aqua;
+        }
+        .diallines:nth-of-type(5n) {
+            position: absolute;
+            z-index: 2;
+            width: 4px; 
+            height: 20px;
+            background: #666;
+            left: 50%;
+            top: -5%;
+            margin-left: -1px;
+            transform-origin: 50% 150px;
+        }
+        
+        .animated {
+            font-size: 80px;
+            color: mediumvioletred;
+            text-align: center;
+            animation: animated 1s ease-in-out infinite alternate;
+        }
+        
+        
+        @-webkit-keyframes animated {
+            from {
+                text-shadow: 0 0 10px #333, 0 0 20px #555, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+            }
+        
+        
+
+        
+        
+    </style>
+    </head>
+    
+    <body>
+        <center>
+            <h1 class="animated" >ANALOG CLOCK</h1>
+        </center>
+        
+        <div class="clock">
+            
+            
+            <div class="dot"></div>
+            <div>
+                <div class="hour"></div>
+                <div class="minute"></div>
+                <div class="second"></div>
+            </div>
+            <div>
+                <span class="h3">3</span>
+                <span class="h6">6</span>
+                <span class="h9">9</span>
+                <span class="h12">12</span>
+            </div>
+            <div class="diallines"></div>
+        </div>
+        
+        
+        
+        <script>
+            
+            var dialLines = document.getElementsByClassName('diallines');
+            var clockEl = document.getElementsByClassName('clock')[0];
+ 
+            for (var i = 1; i < 60; i++) {
+                clockEl.innerHTML += "<div class='diallines'></div>";
+                dialLines[i].style.transform = "rotate(" + 6 * i + "deg)";
+            }
+
+            function clock() {
+                var weekday = new Array(7),
+                    d = new Date(),
+                    h = d.getHours(),
+                    m = d.getMinutes(),
+                    s = d.getSeconds(),
+           
+                    hDeg = h * 30 + m * (360/720),
+                    mDeg = m * 6 + s * (360/3600),
+                    sDeg = s * 6,
+      
+                    hEl = document.querySelector('.hour'),
+                    mEl = document.querySelector('.minute'),
+                    sEl = document.querySelector('.second');
+  
+                hEl.style.transform = "rotate("+hDeg+"deg)";
+                mEl.style.transform = "rotate("+mDeg+"deg)";
+                sEl.style.transform = "rotate("+sDeg+"deg)";
+                
+            }
+
+            setInterval("clock()", 100);
+
+            
+            
+        
+        </script>
+    
+    </body>
+
+</html>
